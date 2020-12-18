@@ -1,10 +1,12 @@
 # imports
+from bs4 import BeautifulSoup
+from numpy.core.numeric import NaN
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 import wget
 import concurrent.futures
 import ssl
+import os
 
 # setup
 requests.packages.urllib3.disable_warnings()
@@ -53,13 +55,14 @@ class dataset:
             print("[!]Links couldn't be fetched")
             return False
         
+        # downloading all excel files
         filenames = []
         try:
             print("[-]Downloading data")
             with concurrent.futures.ThreadPoolExecutor(max_workers = self.max_threads) as executor:
                 futures = []
                 for url in all_links_total:
-                    futures.append(executor.submit(wget.download, url=url, bar=None, out=f"censusindia.gov.in/demographic/{url.split('/')[-1]}"))
+                    futures.append(executor.submit(wget.download, url=url, bar=None, out=f"{os.path.dirname(os.path.realpath(__file__))}/censusindia.gov.in/{url.split('/')[-1]}"))
                 for future in concurrent.futures.as_completed(futures):
                     filenames.append(future.result())
         except:
@@ -68,6 +71,18 @@ class dataset:
         
         print(f"[+]Downloaded {len(filenames)} files")
         return filenames
+
+    # clean excel files
+    def clean_files(self, filenames):
+        try:
+            for x in filenames:
+                os.remove(x)
+        except:
+            print("[-]Couldn't clean directory")
+            return None
+        
+        print("[+]Directory cleaned")
+        return None
 
     # build the dataset from downloaded files
     def build_dataset(self):
@@ -78,6 +93,12 @@ class dataset:
             for file in xls_files:
                 this_df = pd.read_excel(file, skiprows = range(0, 6), names=df.columns.values)
                 df = df.append(this_df)
-        
-        df.to_csv("census_age.csv")
-        return True
+            
+            df.to_csv(f"{os.path.dirname(os.path.realpath(__file__))}/censusindia.gov.in/census_age.csv")
+            print("[+]Dataset Built")
+            self.clean_files(xls_files)
+            return True
+
+        else: 
+            print("[!]Couldn't Download files")
+            return False
