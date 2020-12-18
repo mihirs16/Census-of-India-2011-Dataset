@@ -13,7 +13,7 @@ Dashboard for monitoring distribution of the COVID-19 vaccine. ML-driven decisio
 * Install the required packages
 
 ```bash
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 * Run the scraper
