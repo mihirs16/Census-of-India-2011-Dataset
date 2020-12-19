@@ -1,6 +1,5 @@
 # imports
 from bs4 import BeautifulSoup
-from numpy.core.numeric import NaN
 import pandas as pd
 import requests
 import wget
@@ -15,7 +14,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # template for fetching census dataset
 class dataset:
 
-    # URL to fetch as parameter
+    # URL to fetch & max threads allowed as parameter
     def __init__(self, url, max_threads = 4):
         self.url = url
         self.max_threads = max_threads
@@ -29,15 +28,11 @@ class dataset:
         all_labels = [x.find_all("td")[0] for x in all_rows]
         
         all_links_total = [x.find_all("td")[1].find('a')['href'] for x in all_rows]
-        all_links_sc = [x.find_all("td")[2].find('a')['href'] if x.find_all("td")[2].find('a') else "NA" for x in all_rows]
-        all_links_st = [x.find_all("td")[3].find('a')['href'] if x.find_all("td")[3].find('a') else "NA" for x in all_rows]
         all_labels = [x.get_text() for x in all_labels]
 
         return pd.DataFrame(data = {
             "State": all_labels,
             "Total": all_links_total,
-            "SC": all_links_sc,
-            "ST": all_links_st
         })
 
     # download data from fetched links
@@ -49,8 +44,6 @@ class dataset:
             df_links = self.fetch_links()
             print("[-]Building download URLs")
             all_links_total = ['/'.join(self.url.split('/')[:-1] + [x]) for x in df_links['Total'].values]
-            all_links_sc = ['/'.join(self.url.split('/')[:-1] + [x]) for x in df_links['SC'].values]
-            all_links_st = ['/'.join(self.url.split('/')[:-1] + [x]) for x in df_links['ST'].values]
         except: 
             print("[!]Links couldn't be fetched")
             return False
@@ -85,16 +78,17 @@ class dataset:
         return None
 
     # build the dataset from downloaded files
-    def build_dataset(self):
-        df = pd.DataFrame(columns=["Table Name", "State Code", "District Code", "Area Name", "Age Group", "Total Persons", "Total Males", "Total Females", "Rural Persons", "Rural Males", "Rural Females", "Urban Persons", "Urban Males", "Urban Females"])
+    def get_data(self, columns, outfile, skiprows = range(0, 6), droprows = 0):
+        df = pd.DataFrame(columns = columns)
 
         xls_files = self.download_files()
         if xls_files != False:
             for file in xls_files:
-                this_df = pd.read_excel(file, skiprows = range(0, 6), names=df.columns.values)
-                df = df.append(this_df)
+                this_df = pd.read_excel(file, skiprows = skiprows, names = df.columns.values)
+                this_df.drop(this_df.tail(droprows).index, inplace=True)
+                df = df.append(this_df, ignore_index = True)
             
-            df.to_csv(f"{os.path.dirname(os.path.realpath(__file__))}/censusindia.gov.in/census_age.csv")
+            df.to_csv(outfile)
             print("[+]Dataset Built")
             self.clean_files(xls_files)
             return True
