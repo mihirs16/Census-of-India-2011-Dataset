@@ -1,6 +1,5 @@
 # imports
 from bs4 import BeautifulSoup
-from numpy.core.numeric import NaN
 import pandas as pd
 import requests
 import wget
@@ -15,7 +14,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # template for fetching census dataset
 class dataset:
 
-    # URL to fetch as parameter
+    # URL to fetch & max threads allowed as parameter
     def __init__(self, url, max_threads = 4):
         self.url = url
         self.max_threads = max_threads

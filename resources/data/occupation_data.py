@@ -29,5 +29,5 @@ columns = [
     "Family Worker (Female)",
 ]
 outfile = f"{census_scraper.os.path.dirname(census_scraper.os.path.realpath(__file__))}/censusindia.gov.in/census_occupation.csv"
-age_grp = census_scraper.dataset(url = url, max_threads = 8)
-age_grp.get_data(columns = columns, outfile = outfile, skiprows = range(0, 7), droprows = 2) 
+occ_grp = census_scraper.dataset(url = url, max_threads = 8)
+occ_grp.get_data(columns = columns, outfile = outfile, skiprows = range(0, 7), droprows = 2) 
