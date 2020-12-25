@@ -3,6 +3,7 @@ import os
 import dotenv
 import data
 import pandas as pd
+import requests
 
 # environment variables
 dotenv.load_dotenv()
@@ -79,7 +80,21 @@ def dataset_population():
     print(df_processed_district.head())
     df_processed_district.to_csv("resources/processed_data/census_population.csv")
 
+# processing state wise covid data from API
+def dataset_covid():
+    data = requests.request("GET", "https://www.mygov.in/sites/default/files/covid/covid_state_counts_ver1.json").json()
+    df_covid = pd.DataFrame(data = {
+        "State Code": data["state_code"].values(),
+        "Active Cases": data["Active"].values(),
+        "Total Cases": data["Total Confirmed cases"].values(),
+        "Cured": data["Cured/Discharged/Migrated"].values(),
+        "Deaths": data["Death"].values()
+    })
+    print(df_covid.head())
+    df_covid.to_csv("resources/processed_data/covid_state.csv")
 
-dataset_age()
-dataset_occupation()
-dataset_population()
+# for migration
+# dataset_age()
+# dataset_occupation()
+# dataset_population()
+# dataset_covid()
