@@ -22,4 +22,3 @@ class Database:
     # write DataFrame to SQL
     def write(self, df, table_name, if_exists = "replace"):
         df.to_sql(table_name, con = self.__engine, if_exists = if_exists)
-
