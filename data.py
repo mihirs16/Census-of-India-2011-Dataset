@@ -22,3 +22,18 @@ class Database:
     # write DataFrame to SQL
     def write(self, df, table_name, if_exists = "replace"):
         df.to_sql(table_name, con = self.__engine, if_exists = if_exists)
+
+    # fetch data
+    def fetch(self, table_name, index_col = None, filter_column = None, filter_values = None):
+        # read table from SQL
+        df = self.read(table_name, index_col = index_col)
+
+        # filter table with list of given filter
+        if filter_column and filter_values and type(filter_values) == list:
+            df = df[df[filter_column].isin(filter_values)]
+
+        # clean dataframe
+        df.drop(columns = ["index"], inplace = True)
+        df.reset_index(drop = True, inplace = True)
+
+        return df

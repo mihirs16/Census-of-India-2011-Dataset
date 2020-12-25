@@ -2,7 +2,6 @@
 import os
 import dotenv
 import data
-import pandas as pd
 import requests
 
 # setup
@@ -14,7 +13,7 @@ db = data.Database("may_db", username, password, hostname)
 
 # processing census_age.csv
 def dataset_age():
-    df_age = pd.read_csv("resources/data/censusindia.gov.in/census_age.csv")
+    df_age = data.pd.read_csv("resources/data/censusindia.gov.in/census_age.csv")
 
     # separating states and districts
     area_district = []
@@ -44,7 +43,7 @@ def dataset_age():
 
 # processing census_occupation.csv
 def dataset_occupation():
-    df_occupation = pd.read_csv("resources/data/censusindia.gov.in/census_occupation.csv")
+    df_occupation = data.pd.read_csv("resources/data/censusindia.gov.in/census_occupation.csv")
 
     # separating states and districts
     area_district = []
@@ -69,7 +68,7 @@ def dataset_occupation():
 
     # state wise occupation distribution
     df_occupation = df_occupation[df_occupation["Residence"] == "Total"]
-    df_processed_state = df_occupation[df_occupation["Area Name"].isin(area_district)][["State Code", "Occupation", "Total Main Worker (Person)"]]
+    df_processed_state = df_occupation[df_occupation["Area Name"].isin(area_state)][["State Code", "Occupation", "Total Main Worker (Person)"]]
     df_processed_state = df_processed_state.reset_index().drop(["index"], axis = 1)
     df_processed_state["State Code"] = [int(x) for x in list(df_processed_state["State Code"].values)]
     df_processed_state["Total Main Worker (Person)"] = [int(x) for x in list(df_processed_state["Total Main Worker (Person)"].values)]
@@ -80,7 +79,7 @@ def dataset_occupation():
 
 # processing census_population.csv
 def dataset_population():
-    df_district = pd.read_csv("resources/data/censusindia.gov.in/census_population.csv")
+    df_district = data.pd.read_csv("resources/data/censusindia.gov.in/census_population.csv")
     
     # state & district wise population distribution
     df_district = df_district[df_district["Residence"] == "Total"]
@@ -92,13 +91,13 @@ def dataset_population():
 
 # processing state wise covid data from API
 def dataset_covid():
-    data = requests.request("GET", "https://www.mygov.in/sites/default/files/covid/covid_state_counts_ver1.json").json()
-    df_covid = pd.DataFrame(data = {
-        "State Code": data["state_code"].values(),
-        "Active Cases": data["Active"].values(),
-        "Total Cases": data["Total Confirmed cases"].values(),
-        "Cured": data["Cured/Discharged/Migrated"].values(),
-        "Deaths": data["Death"].values()
+    response = requests.request("GET", "https://www.mygov.in/sites/default/files/covid/covid_state_counts_ver1.json").json()
+    df_covid = data.pd.DataFrame(data = {
+        "State Code": response["state_code"].values(),
+        "Active Cases": response["Active"].values(),
+        "Total Cases": response["Total Confirmed cases"].values(),
+        "Cured": response["Cured/Discharged/Migrated"].values(),
+        "Deaths": response["Death"].values()
     })
     print(df_covid.head())
     df_covid.to_csv("resources/processed_data/covid_state.csv")
