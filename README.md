@@ -28,10 +28,18 @@ git clone https://github.com/:username/Project-MAY
 pip install -r requirements.txt
 ```
 
+* Add credentials for MY_SQL database to `.env` as follows.
+
+```text
+SQL_USER=example
+SQL_PASS=Example#123
+SQL_HOST=ex.am.pl.es:eg
+```
+
 * Run the server.
 
 ```bash
 python app.py
 ```
 
-* You can view the dashboard at `http://localhost:5000/`
+* You can view the dashboard at `http://localhost:5000/` in your browser.
