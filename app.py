@@ -1,23 +1,47 @@
 # imports
 import data
-import os
-import dotenv
+import os, dotenv
+import flask, flask_cors
 
-# setup
+# server setup
+app = flask.Flask(__name__)
+flask_cors.CORS(app, support_credentials = True)
+
+# database setup
 dotenv.load_dotenv()
 username = os.getenv("GCP_SQL_USER")
 password = os.getenv("GCP_SQL_PASS")
 hostname = os.getenv("GCP_SQL_HOST")
 db = data.Database("may_db", username, password, hostname)
 
-print(db.fetch(
-    table_name = "AGE_STATE", 
-    filter_column = "Age Group",
-    filter_values = ["50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+"],
-).head())
+# default route | returns homepage
+@app.route("/", methods = ["GET"])
+def home():
+    return flask.render_template("index.html")
 
-print(db.fetch(
-    table_name = "OCCUPATION_STATE", 
-    filter_column = "Occupation",
-    filter_values = ["Life Science and Health Professionals", "Teaching Associate Professionals"],
-).head())
+# database route | returns filtered table
+@app.route("/database", methods = ["POST"])
+def get_data():
+    received = flask.request.json
+    return db.fetch(
+        table_name = received.get("table_name"), 
+        filter_column = received.get("column_filter"),
+        filter_values = received.get("filter_values")
+    ).to_json()
+
+# app run
+if __name__ == '__main__':
+    # for hot reload and tracking static files and templates
+    from os import path, walk
+
+    extra_dirs = ['templates/', 'static/']
+    extra_files = extra_dirs[:]
+    for extra_dir in extra_dirs:
+        for dirname, dirs, files in walk(extra_dir):
+            for filename in files:
+                filename = path.join(dirname, filename)
+                if path.isfile(filename):
+                    extra_files.append(filename)
+
+    # flask app run
+    app.run(debug=True, extra_files=extra_files)

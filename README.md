@@ -11,3 +11,25 @@ Dashboard for monitoring distribution of the COVID-19 vaccine. ML-driven decisio
 * [Occupation Data](resources/data/censusindia.gov.in/census_occupation.csv) from [Census of India: B-24](https://censusindia.gov.in/2011census/B-series/B_24.html)
 
 * [State, District & Town Data](resources/data/censusindia.gov.in/census_district.csv) from [Census of India: A-1](http://censusindia.gov.in/2011census/A-1_NO_OF_VILLAGES_TOWNS_HOUSEHOLDS_POPULATION_AND_AREA.xlsx)
+
+* COVID Data from [MyGov Website](https://www.mygov.in/covid-19)
+
+### API
+
+* Fork the repository and clone it.
+
+```bash
+git clone https://github.com/:username/Project-MAY
+```
+
+* Installed the required packages.
+
+```bash
+pip install -r requirements.txt
+```
+
+* Run the server.
+
+```bash
+python app.py
+```
