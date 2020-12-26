@@ -33,3 +33,5 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+
+* You can view the dashboard at `http://localhost:5000/`
