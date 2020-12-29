@@ -6,9 +6,9 @@ import requests
 
 # setup
 dotenv.load_dotenv()
-username = os.getenv("GCP_SQL_USER")
-password = os.getenv("GCP_SQL_PASS")
-hostname = os.getenv("GCP_SQL_HOST")
+username = os.getenv("SQL_USER")
+password = os.getenv("SQL_PASS")
+hostname = os.getenv("SQL_HOST")
 db = data.Database("may_db", username, password, hostname)
 
 # processing census_age.csv
