@@ -2,9 +2,7 @@
 
 Dashboard for monitoring distribution of the COVID-19 vaccine. ML-driven decision making and prioritization of candidates for the same.
 
-## Contents
-
-### Data
+## Data
 
 * [Demographic Data](resources/data/censusindia.gov.in/census_age.csv) from [Census of India: C-14](https://censusindia.gov.in/2011census/C-series/C-14.html)
 
@@ -14,7 +12,7 @@ Dashboard for monitoring distribution of the COVID-19 vaccine. ML-driven decisio
 
 * COVID Data from [MyGov Website](https://www.mygov.in/covid-19)
 
-### API
+## Development
 
 * Fork the repository and clone it.
 
@@ -36,10 +34,36 @@ SQL_PASS=Example#123
 SQL_HOST=ex.am.pl.es:eg
 ```
 
+### Backend (Flask)
+
 * Run the server.
 
 ```bash
-python app.py
+python main.py
 ```
 
-* You can view the dashboard at `http://localhost:5000/` in your browser.
+* Local server will be available at `http://localhost:5000/`.
+
+### Frontend (React.js)
+
+* Change directory to client app.
+
+```bash
+cd dashboard
+```
+
+* Run the full-stack application.
+
+```bash
+npm install
+npm run build
+cd ..
+python main.py
+```
+
+* \[OPTIONAL\] Run the React development Server.
+
+```bash
+npm install
+npm start
+```
