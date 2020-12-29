@@ -1,11 +1,25 @@
+// modules
 import React from 'react';
-import ReactDOM from 'react-dom';
 
+// components
+import Header from './components/header';
+import Sidebar from './components/sidebar';
+import Dashboard from './components/dashboard';
+
+// Homepage 
 class Homepage extends React.Component {
     render () {
-        return <div>
-            <h1>Dashboard</h1>
-        </div>
+        return (
+            <div className="homepage">
+                <Header />
+                <div className="content" style={{
+                    display: 'flex',
+                }}>
+                    <Sidebar />
+                    <Dashboard />
+                </div>
+            </div> 
+        );       
     }
 }
 
