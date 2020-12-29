@@ -4,7 +4,7 @@ import os, dotenv
 import flask, flask_cors
 
 # server setup
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, static_folder="dashboard/build/static", template_folder="dashboard/build")
 flask_cors.CORS(app, support_credentials = True)
 
 # database setup
