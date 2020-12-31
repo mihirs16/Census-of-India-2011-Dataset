@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+html, body {
+    background-color: #191A1A;
+    height: 100%;
+    width: 100%;
+}
+
+div#root {
+    height: 100%;
+}
