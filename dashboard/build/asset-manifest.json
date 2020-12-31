@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.56e5a230.chunk.css",
+    "main.js": "/static/js/main.0a36e9e6.chunk.js",
+    "main.js.map": "/static/js/main.0a36e9e6.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.47778150.js",
+    "runtime-main.js.map": "/static/js/runtime-main.47778150.js.map",
+    "static/js/2.195d6132.chunk.js": "/static/js/2.195d6132.chunk.js",
+    "static/js/2.195d6132.chunk.js.map": "/static/js/2.195d6132.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.56e5a230.chunk.css.map": "/static/css/main.56e5a230.chunk.css.map",
+    "static/js/2.195d6132.chunk.js.LICENSE.txt": "/static/js/2.195d6132.chunk.js.LICENSE.txt",
+    "static/media/sidebar.css": "/static/media/VisbyCF-DemiBold.0cea91e5.woff2",
+    "static/media/header.css": "/static/media/VisbyCF-ExtraBold.c06dbba4.woff2",
+    "static/media/export.b844597f.svg": "/static/media/export.b844597f.svg",
+    "static/media/reload.1ac24c15.svg": "/static/media/reload.1ac24c15.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.47778150.js",
+    "static/js/2.195d6132.chunk.js",
+    "static/css/main.56e5a230.chunk.css",
+    "static/js/main.0a36e9e6.chunk.js"
+  ]
+}

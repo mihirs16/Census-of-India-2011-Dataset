@@ -21,6 +21,7 @@ class Sidebar extends React.Component {
     render () {
         return (
             <div className="sidebar">
+                <h1 className="logo">Dashboard.</h1>
                 <OptionButton group="Menu" text="Home" checked={true}/>
                 <OptionButton group="Menu" text="State" />
                 <OptionButton group="Menu" text="District" />

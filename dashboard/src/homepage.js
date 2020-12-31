@@ -10,10 +10,10 @@ import Dashboard from './components/dashboard';
 class Homepage extends React.Component {
     render () {
         return (
-            <div className="homepage">
+            <div className="homepage" style={{height: '100%'}}>
                 <Header />
                 <div className="content" style={{
-                    display: 'flex',
+                    height: '100%'
                 }}>
                     <Sidebar />
                     <Dashboard />

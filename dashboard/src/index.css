@@ -5,9 +5,12 @@
     color: white;
 }
 
-body {
-    background-color: #131515;
+html, body {
+    background-color: #191A1A;
     height: 100%;
     width: 100%;
-    padding: 20px;
+}
+
+div#root {
+    height: 100%;
 }

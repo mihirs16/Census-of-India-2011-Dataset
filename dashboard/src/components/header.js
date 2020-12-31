@@ -25,7 +25,6 @@ class Header extends React.Component {
     render () {
         return (
         <div className="header">
-            <h1 className="logo">Dashboard.</h1>
             <div style={{
                 marginLeft: 'auto'
             }}>
