@@ -78,13 +78,13 @@ class dataset:
         return None
 
     # build the dataset from downloaded files
-    def get_data(self, columns, outfile, skiprows = range(0, 6), droprows = 0):
+    def get_data(self, columns, outfile, skiprows = range(0, 6), droprows = 0, usecols = None):
         df = pd.DataFrame(columns = columns)
 
         xls_files = self.download_files()
         if xls_files != False:
             for file in xls_files:
-                this_df = pd.read_excel(file, skiprows = skiprows, skipfooter = droprows, names = df.columns.values, header=None)
+                this_df = pd.read_excel(file, names = df.columns.values, skiprows = skiprows, skipfooter = droprows, usecols = usecols)
                 df = df.append(this_df, ignore_index = True)
             
             df.to_csv(outfile)

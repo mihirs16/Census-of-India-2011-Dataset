@@ -40,4 +40,4 @@ columns = [
 ]
 outfile = f"{census_downloader.os.path.dirname(census_downloader.os.path.realpath(__file__))}/censusindia.gov.in/census_disability.csv"
 age_grp = census_downloader.dataset(url = url, max_threads = 8)
-age_grp.get_data(columns = columns, outfile = outfile)
+age_grp.get_data(columns = columns, outfile = outfile, skiprows = range(0, 5), usecols = range(0, 33))
