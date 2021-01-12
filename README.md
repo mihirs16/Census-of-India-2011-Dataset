@@ -12,5 +12,7 @@ This repository contains the data collected from the website for the [Office of 
 
 * [Occupation Data](censusindia.gov.in/census_occupation.csv) from [Census of India: B-24](https://censusindia.gov.in/2011census/B-series/B_24.html)
 
+* [Disability Data](censusindia.gov.in/census_disability.csv) from [Census of India: B-24](https://censusindia.gov.in/2011census/C-series/c-20.html)
+
 ---
 This dataset is also available on Kaggle [here](https://www.kaggle.com/mihirs16/census-of-india-2011-population-age-work).

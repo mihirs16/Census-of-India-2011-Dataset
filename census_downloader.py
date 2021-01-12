@@ -84,7 +84,7 @@ class dataset:
         xls_files = self.download_files()
         if xls_files != False:
             for file in xls_files:
-                this_df = pd.read_excel(file, skiprows = skiprows, skipfooter = droprows, names = df.columns.values)
+                this_df = pd.read_excel(file, skiprows = skiprows, skipfooter = droprows, names = df.columns.values, header=None)
                 df = df.append(this_df, ignore_index = True)
             
             df.to_csv(outfile)
